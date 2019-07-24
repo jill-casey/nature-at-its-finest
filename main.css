@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+  display: block;
+  text-align: center;
+  height: 100px;
+}
+
+
+
+body {
+    font-size: 18px;
+    color: black;
+    list-style: none;
+    display: block;
+    margin: 15px;
+    padding: 10px;
+}
+
+/*baseline media sizing, mobile first */
+form {
+    border-color: black;
+    border-style: dashed;
+    border-width: 2px;
+    width: 90%;
+    text-align: left;
+    padding-left: 50px;
+    padding: 10px;
+}
+
+
+#userInput {
+
+    font-size: 20px;
+
+}
+
+#maxLimitInput {
+    width: 50px;
+}
+
+.chooser {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#js-list-item {
+    padding-bottom: 30px;
+
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#userStateSelection {
+     
+    margin-bottom: 10px;
+
+}
