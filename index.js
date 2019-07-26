@@ -2,8 +2,6 @@
 
 const apiKey = 'z5UamSS2tY6wiHIGqaDAN45vz0U1M4VHB55z8U0n';
 
-
-
 function formatUrl(stateValue, maxLimit, fields) {
     let params = `stateCode=${stateValue}&limit=${maxLimit}&fields=${fields}&api_key=${apiKey}`
     return params;
@@ -39,6 +37,28 @@ function stateSearch(stateValue, maxLimit, fields) {
 
 }
 
+
+//fetch the weather data
+function getWeather(weatherLat, weatherLong){
+    let weatherPoints = `${weatherLat},${weatherLong}`
+    let weatherUrl = `https://api.weather.gov/points/${weatherPoints}/forecast`
+    fetch(weatherUrl)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('response.statusText');
+    })
+    .then(responseJson => formatWeather(responseJson))
+    .catch(error => {
+        $('#js-error-message').text(`Weather: Oops there it is. ${error.message}`)
+    })
+}
+
+function formatWeather(responseJson){
+    return responseJson.data;
+}
+
 //display the basic info on state parks iterating over each park and operating hour sub-objects
 function displayResultsStateParksWithHours(responseJson) {
     let parkList = responseJson.data;
@@ -46,9 +66,10 @@ function displayResultsStateParksWithHours(responseJson) {
     for (let i = 0; i < parkList.length; i++) { 
         for(let j=0; j < parkList[i].operatingHours.length; j++){
         $('.results').append(
-            `<li id="js-list-item"><h3>${parkList[i].fullName}-${parkList[i].operatingHours[j].name}</h3>
+            `<li id="js-list-item-${parkList[i]}"><h3>${parkList[i].fullName}-${parkList[i].operatingHours[j].name}</h3>
             <p>${parkList[i].description}</p>
             <p><a href="${parkList[i].url}" target="_blank">${parkList[i].url}</a></p>
+           
             <p>Standard Operating Hours at ${parkList[i].operatingHours[j].name}</p>
             <p>${parkList[i].operatingHours[j].description}</p>
                 <p>Monday: ${parkList[i].operatingHours[j].standardHours.monday}</p>
@@ -58,8 +79,29 @@ function displayResultsStateParksWithHours(responseJson) {
                 <p>Friday: ${parkList[i].operatingHours[j].standardHours.friday}</p>
                 <p>Saturday: ${parkList[i].operatingHours[j].standardHours.saturday}</p>
                 <p>Sunday: ${parkList[i].operatingHours[j].standardHours.sunday}</p>
-        </li><hr>`
-        )} 
+        </li>
+        <hr>`
+        )
+        if(parkList[i].latlong != 'undefined'){
+            let weatherLat = parkList[i].latLong;
+        console.log(`line 86 weatherLat is ${weatherLat}`);
+        
+        let weatherData = weatherLat.split(' ');
+        console.log(`weatherData is ${weatherData}`)
+        let latitude = weatherData[0].slice(4,14);
+        let longitude = weatherData[1].slice(5,15);
+        
+        let weatherPrediction  =  getWeather(latitude,longitude);
+        console.log(`latitude is ${latitude}. longitude is ${longitude}`)
+        let fullWeatherPrediction = weatherPrediction.periods; 
+        for(let k=0; k<fullWeatherPrediction.length; k++){
+        $('#js-list-item-parkList[i]').append(
+            `${fullWeatherPrediction.name}
+            ${fullWeatherPrediction.temperature}
+            `
+        )
+        }
+    } }
     }           
     $('.results').removeClass('hidden');
 };
@@ -68,7 +110,7 @@ function displayResultsStateParksNoHours(responseJson){
     let parkList = responseJson.data;
     console.log(`parkList length is ${parkList.length}`);
     for(let i = 0; i < parkList.length; i++){ 
-        for(let j=0; j < parkList[i].entranceFees.length; j++){
+        for(let j=0; j < parkList[i].entranceFees.length; j++){ 
         $('.results').append(
             `<li id="js-list-item"><h3>${parkList[i].fullName}</p></h3>
             <p>${parkList[i].description}</p>
@@ -98,7 +140,7 @@ function grabCampgrounds(stateValue, maxLimit, fields){
         })
         .then(responseJson => displayResultsCampgrounds(responseJson))
         .catch(error => {
-            $('#js-error-message').text(`Oops there it is. ${error.message}`)
+            $('#js-error-message').text(`grab campgrounds: Oops there it is. ${error.message}`)
         })
 }
 
@@ -183,7 +225,7 @@ function chooserListener() {
         if(nextScreen == "details"){
             $('#detail-search').removeClass("hidden")
         } else if(nextScreen == "timing"){
-            $('#timing-search').removeClass("hidden")
+            $('#weather-search').removeClass("hidden")
         } else $('#locale-search').removeClass("hidden")
         localeSearch();
     });
