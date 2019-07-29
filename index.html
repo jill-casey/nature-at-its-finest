@@ -18,29 +18,16 @@
 
     <main class="content" role="main">
         <section class="discover-call-to-action">
-            <p>Discover nearby national parks. Learn about what those parks offer, what events might be happening,
-                hours, and accesibility.</p>
-            <p>Discover celestial events hapenning to plan nighttime viewing activities.</p>
-            <p>Discover when there is a low tide near your location to tantilize your curiosities.</p>
+            <p>Discover nearby national parks, open hours, entrance fees, and events.</p>
+            <p>Discover nearby hikes.</p>
+            <p></p>
             <p>Pack and plan for the weather where you are going and when you are going? </p>
         </section>
        
         <form id="container">
                 <fieldset class="initial-fieldset">
-                    <input type="radio" id="details" name="initial-questions" value="details"
-                        class="initial-form-items"> </input>
-                    <label for="details">I know where and when I am going, but want to plan around other natural
-                        events.</label>
-                    <hr>
-                    <input type="radio" id="timing" name="initial-questions" value="timing" class="initial-form-items">
-                    </input>
-                    <label for="timing">I want to figure out the best time to visit a specific national park.</label>
-                    <hr>
-                    <input type="radio" id="locale" name="initial-questions" value="locale" class="initial-form-items">
-                    </input>
-                    <label for="locale">I'm not sure where I want to go yet.</label>
-                    <hr>
-                    <button type="submit" id=“initial-button” class="initial-button">NEXT</button>
+                    <h3>Find national parks, local forecast, and other natural resources.</h3>  
+                    <div><button type="submit" id=“initial-button” class="initial-button">GO!</button></div>
                 </fieldset>
                 
                 <fieldset id="detail-search" class="hidden">
@@ -114,24 +101,19 @@
                     <section id="includeCampgrounds" class="js-campground-question">
                             <div> <input type="radio" name="national-parks-withCampgrounds-options" id="yesCampgrounds"
                                 value="yesCampgrounds"></input>
-                            <label for="yesCampgrounds">Only show the national parks that have campgrounds.</label></div>
+                            <label for="yesCampgrounds">Limit national parks to campgrounds.</label></div>
                             <div> <input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
                                 value="allParks"></input>
                             <label for="allParks">Show all National parks.</label></div>
                     </section>
-                    <div id="addFees-field-options" class="hidden"><input type="checkbox" name="national-parks-field-options" id="addFees"
-                            value="addFees" ></input>
-                        <label for="addFees">Show the entrance fees for each national park.</label></div>
-                    <div id="addHours-field-options" class="hidden"><input type="checkbox" name="national-parks-field-options" id="addHours"
-                            value="addHours"></input>
-                        <label for="addHours">Show the operating hours for each national park.</label></div>
+                    
                     
                     <div id="addAccessibility-field-options" class="hidden"><input type="checkbox" name="national-parks-field-options" id="addAccessibility"
                             value="addAccessibility"></input>
                         <label for="addAcessibility">Show accessibility information the campgrounds.</label></div>
                     <p>
                         <label for="maxLimitInput">Max number of parks do you want to see?</label>
-                        <input type="number" id="maxLimitInput" min=1 value=10></p>
+                        <input type="number" id="maxLimitInput" min=1 value=2 max=10></p>
 
                     <button type="submit" id=“get-parks”>Get a list of Parks</button>
 
