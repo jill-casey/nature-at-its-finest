@@ -7,6 +7,7 @@ function formatUrl(stateValue, maxLimit, fields) {
     return params;
 }
 
+//stateSearch function only returning JSON from api with parks endpoint. 
 function stateSearch(stateValue, maxLimit, fields) {
     const newParams = formatUrl(stateValue, maxLimit, fields)
     const newUrl = `https://developer.nps.gov/api/v1/parks?${newParams}`
@@ -23,28 +24,6 @@ function stateSearch(stateValue, maxLimit, fields) {
         $('#js-error-message').text(`Oops there it is. ${error.message}`)
     })
 }
-    /*if(fields.includes('operatingHours')){fetch(newUrl)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('response.statusText');
-        })
-        .then(responseJson => displayResultsStateParksWithHours(responseJson))
-        .catch(error => {
-            $('#js-error-message').text(`Oops there it is. ${error.message}`)
-        })
-    } else{fetch(newUrl)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('response.statusText');
-        })
-        .then(responseJson => displayResultsStateParksNoHours(responseJson))
-        .catch(error => {
-            $('#js-error-message').text(`Oops there it is. ${error.message}`)
-        })*/
     
 //simplified function to get the basic data each response can send for more display info
 function displayParks(responseJson){
@@ -164,12 +143,17 @@ function weatherPoints(currentPark){
 
     let weatherData = weatherLatLong.split(' ');
     console.log(`weatherData is ${weatherData}`)
-    
+    if(weatherData[1].slice(0,4) == 'lng:'){
+        let latitude = weatherData[0].slice(5,13)
+        let longitude = weatherData[1].slice(4,13)
+        getForecast(currentPark, latitude, longitude);
+        console.log(`Cg Data: latitude is ${latitude}. longitude is ${longitude}`)
+    } else {
     let latitude = weatherData[0].slice(4,14);
     let longitude = weatherData[1].slice(5,15);
-
     getForecast(currentPark, latitude, longitude);
-    console.log(`latitude is ${latitude}. longitude is ${longitude}`)
+    console.log(`Park Data: latitude is ${latitude}. longitude is ${longitude}`)
+    }
 }
 
 
@@ -205,19 +189,18 @@ function displayWeather(currentPark, responseJson){
         let isoDate = `${fullWeatherPrediction.periods[k].startTime}`;
         let dateStr = Date.parse(isoDate);
         let newDate = new Date(dateStr);
-        console.log(`newDate is ${newDate}`);
         let finalDate = newDate.toDateString();
+        let shortenedDate = finalDate.slice(4,15);
         
         
         $(`#js-park-weather-item-${currentPark.parkCode}`).append(     
         `<li id="js-weather-details-${fullWeatherPrediction.periods[k].name}">
-        <p>${fullWeatherPrediction.periods[k].name}</p>
-        <div>When: ${finalDate}
-        <div class="forecaset">${fullWeatherPrediction.periods[k].shortForecast}</div>
+        <p>
+        <div class="forecastDate"><h4>${fullWeatherPrediction.periods[k].name} ${shortenedDate}</h4></div>
+        <div class="forecast">${fullWeatherPrediction.periods[k].shortForecast}</div>
         <div class="temp">${fullWeatherPrediction.periods[k].temperature}F</div>
-        <div>Wind: ${fullWeatherPrediction.periods[k].windDirection} ${fullWeatherPrediction.periods[k].windSpeed}</div>
-        
-        </li>`
+        <div class="wind">Wind: ${fullWeatherPrediction.periods[k].windDirection} ${fullWeatherPrediction.periods[k].windSpeed}</div>
+        </p><hr></li>`
         )};
     }       
 
@@ -265,10 +248,77 @@ function grabCampgrounds(stateValue, maxLimit, fields){
 
 //display the results from the campground API endpoint
 function displayResultsCampgrounds(responseJson) {
-    let campgroundResults = responseJson.data;
-    console.log(`camgroundResults length is ${campgroundResults.length}`);
+    let cgList = responseJson.data;
+    console.log(`camgroundResults length is ${cgList.length}`);
+    $('.results').removeClass('hidden');   
+    for (let i = 0; i < cgList.length; i++) {
+        let currentCg = cgList[i];   
+        $('.results').append(
+            `<li id="js-park-item-${currentCg.parkCode}"><h3>${currentCg.name}</h3>
+            <p>${currentCg.description}</p>
+            <p>Find reservation and detailed directions here. <a href="${currentCg.directionsUrl}" target="_blank">${currentCg.directionsUrl}</a></p>
+            <p>Directions Overview: ${currentCg.directionsoverview}</p>
+
+            <button type="submit" id="get-accessibility-${currentCg.parkCode}" class="">Get Accessibilty Info</button>
+            <button type="submit" id="hide-accessibility-${currentCg.parkCode}" class="hidden">Hide Accessibility Info</button>
+            <button type="submit" id="show-accessibility-${currentCg.parkCode}" class="hidden">Show Accessibility Info</button>
+            <p>Weather Overview: ${currentCg.weatheroverview}</p>
+            <div> 14 day Weather Forecaset: <button type="submit" id="get-weather-${currentCg.parkCode}" class="">Get Weather</button>
+            <button type="submit" id="hide-weather-${currentCg.parkCode}" class="hidden">Hide Weather</button>
+            <button type="submit" id="show-weather-${currentCg.parkCode}" class="hidden">Show Weather</button>
+            `
+        )
+        getAccessibility(currentCg);
+        getWeather(currentCg);
+        
+    }   
 };
 
+////list accessibility features available at the campsite
+function getAccessibility(currentCg){
+    console.log(`currentCg function was called ${currentCg.parkCode}`)
+    $(`#get-accessibility-${currentCg.parkCode}`).click(event => {
+        event.preventDefault();
+        $(`#get-accessibility-${currentCg.parkCode}`).toggleClass('hidden');
+        $(`#hide-accessibility-${currentCg.parkCode}`).toggleClass('hidden');    
+        let thisAccess = Object.keys(currentCg);
+        console.log(`the keys returned on click are ${thisAccess}`)
+        console.log(`the name for this Campground is ${currentCg.name}`)
+        $(`#js-park-item-${currentCg.parkCode}`).append(
+            `<li id="js-park-accessibility-item-${currentCg.parkCode}"><h3>${currentCg.name} - Accessibility Information</h3>
+            <p>Wheelchair Access: ${currentCg.accessibility.wheelchairaccess}</p>
+            <p>Ada Info: ${currentCg.accessibility.adainfo}</p>
+            <p>Toilets: ${currentCg.amenities.toilets}</p>
+            <p>Water: ${currentCg.amenities.potablewater}</p>
+                
+        </li>
+        <hr>`     
+                )
+    hideAccessibility(currentCg); 
+    showAccessibility(currentCg);
+    });   
+}
+
+
+function hideAccessibility(currentCg){   
+    $(`#hide-Accessibility-${currentCg.parkCode}`).click(event => {
+        event.preventDefault();
+        $(`#js-park-accessibility-item-${currentCg.parkCode}`).toggleClass('hidden');
+        $(`#show-accessibility-${currentCg.parkCode}`).toggleClass('hidden');
+        $(`#hide-accessibility-${currentCg.parkCode}`).toggleClass('hidden');      
+    });
+}
+
+
+//toggle showing the weather again after initial show-hide sequence without regenerating code
+function showAccessibility(currentCg){   
+    $(`#show-accessibility-${currentCg.parkCode}`).click(event => {
+        event.preventDefault();
+        $(`#js-park-accessibility-item-${currentCg.parkCode}`).toggleClass('hidden');
+        $(`#show-accessibility-${currentCg.parkCode}`).toggleClass('hidden');
+        $(`#hide-accessibility-${currentCg.parkCode}`).toggleClass('hidden');      
+    });  
+}
 
 
 //then run check on all or campground only endpoint, then combine fields and submit to correct endpoint
