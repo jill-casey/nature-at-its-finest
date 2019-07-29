@@ -101,19 +101,25 @@
                     <section id="includeCampgrounds" class="js-campground-question">
                             <div> <input type="radio" name="national-parks-withCampgrounds-options" id="yesCampgrounds"
                                 value="yesCampgrounds"></input>
-                            <label for="yesCampgrounds">Limit national parks to campgrounds.</label></div>
+                            <label for="yesCampgrounds">Find Campgrounds at National Parks.</label></div>
                             <div> <input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
                                 value="allParks"></input>
-                            <label for="allParks">Show all National parks.</label></div>
+                            <label for="allParks">Show all National Parks.</label></div>
+                            <div class= "hidden"> <input type="radio" name="national-parks-withCampgrounds-options" id="hikesNearZip"
+                                value="hikesNearZip"></input>
+                            <label for="hikesNearZip">Search for hike by zip code.</label></div>
                     </section>
                     
-                    
-                    <div id="addAccessibility-field-options" class="hidden"><input type="checkbox" name="national-parks-field-options" id="addAccessibility"
-                            value="addAccessibility"></input>
-                        <label for="addAcessibility">Show accessibility information the campgrounds.</label></div>
+                    <section id="hike-zipSearch" class="hidden">
+                    <div id="addZip-field-options"><input type="text" name="zip-code" id="zip-code"></input>
+                        <label for="zip-code">Zip Code</label></div>
+                    <div id="addRadiusInZip-field-options"><input type="text" name="radius-zip" id="radius-zip"
+                            value="radiusZip">Search for hikes within</input>radius.
+                        </div>
+                    </section>        
                     <p>
                         <label for="maxLimitInput">Max number of parks do you want to see?</label>
-                        <input type="number" id="maxLimitInput" min=1 value=2 max=10></p>
+                        <input type="number" id="maxLimitInput" min=1 value=2></p>
 
                     <button type="submit" id=“get-parks”>Get a list of Parks</button>
 
