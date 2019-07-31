@@ -27,7 +27,7 @@ function stateSearch(stateValue, maxLimit, fields) {
     })
     .then(responseJson => displayParks(responseJson))
     .catch(error => {
-        $('#js-error-message').text(`Oops there it is. ${error.message}`)
+        $('#js-error-message').text(`We are having difficulty getting the data you want about ${stateValue}. ${error.message}`)
     })
 }
     
@@ -36,12 +36,25 @@ function displayParks(responseJson){
     $('.results').empty();   
     let parkList = responseJson.data;
     console.log(`parkList length is ${parkList.length}`);
-    for (let i = 0; i < parkList.length; i++) {
+    if(parkList.length == 0){
+        $('.results').append(
+            `<li id="js-park-item-none"><h4>We cannot find any national parks using this search criteria.</h4></li>
+            `)
+        } else { 
+    
+        for (let i = 0; i < parkList.length; i++) {
         let currentPark = parkList[i];   
         $('.results').append(
             `<li id="js-park-item-${currentPark.parkCode}"><h3>${currentPark.fullName}</h3>
             <p>${currentPark.description}</p>
             <p><a href="${currentPark.url}" target="_blank">${currentPark.url}</a></p>
+            `)
+        if(currentPark.latLong == ""){
+            $(`#js-park-item-${currentPark.parkCode}`).append(`
+            <div id="buttons-no-go">Weather and Hikes are not available for this site</div>
+            `)
+        } else {
+            $(`#js-park-item-${currentPark.parkCode}`).append(`
             <button type="submit" id="get-hours-${currentPark.parkCode}" class="">Get Hours</button>
             <button type="submit" id="hide-hours-${currentPark.parkCode}" class="hidden">Hide Hours</button>
             <button type="submit" id="show-hours-${currentPark.parkCode}" class="hidden">Show Hours</button>
@@ -51,12 +64,12 @@ function displayParks(responseJson){
             <button type="submit" id="get-nearbyHikes-${currentPark.parkCode}" class="">Get Nearby Hikes</button>
             <button type="submit" id="hide-nearbyHikes-${currentPark.parkCode}" class="hidden">Hide Nearby Hikes</button>
             <button type="submit" id="show-nearbyHikes-${currentPark.parkCode}" class="hidden">Show Nearby Hikes</button>
-            `
-        )
+            `)}
         getHours(currentPark);
         getWeather(currentPark);
         getHikes(currentPark); 
-    }   
+        }  
+    } 
 }
 
 
@@ -120,7 +133,7 @@ function getWeather(currentPark){
             weatherPoints(currentPark);
             hideWeather(currentPark); 
             showWeather(currentPark);
-            $(event.target).closest('li').append(`<div id="loading-weather">Loading weather data</div>`);
+            $(event.target).closest('li').append('<div id="loading-weather">Loading weather data</div>');
         });
 }
 
@@ -150,7 +163,7 @@ function weatherPoints(currentPark){
     let weatherLatLong = currentPark.latLong;
     console.log(`line 86 weatherLat is ${weatherLatLong}`);
     if(weatherLatLong == ""){
-        console.log(`we have an error getting the data you want`);
+        $('#weather-loading').replaceWith('There is an error getting the data you want');
     } else {
     let weatherData = weatherLatLong.split(' ');
     console.log(`weatherData is ${weatherData}`)
@@ -192,18 +205,19 @@ function getForecast(currentPark, latitude, longitude){
     })
     .then(responseJson => displayWeather(currentPark, responseJson))
     .catch(error => {
-        $('#js-error-message').text(`It appears that we cannot get the weather data you requested.`)
+        $('#loading-weather').replaceAll(`It appears that we cannot get the weather data you requested.`)
     })
 }
 
 
 function displayWeather(currentPark, responseJson){
-    $('#loading-weather').empty();
+    
     let fullWeatherPrediction = responseJson.properties; 
     $(`#js-park-item-${currentPark.parkCode}`).append(
         `<li id="js-park-weather-item-${currentPark.parkCode}"><h3>${currentPark.name} Weather </h3>
         </li>`
-        );    
+        ); 
+    $('#loading-weather').empty();       
     for(let k=0; k< 14; k++){
         let isoDate = `${fullWeatherPrediction.periods[k].startTime}`;
         let dateStr = Date.parse(isoDate);
@@ -219,6 +233,7 @@ function displayWeather(currentPark, responseJson){
         <div class="wind">Wind: ${fullWeatherPrediction.periods[k].windDirection} ${fullWeatherPrediction.periods[k].windSpeed}</div>
         </p><hr></li>`
         )};
+        
     }       
 
 
@@ -230,32 +245,40 @@ function displayWeather(currentPark, responseJson){
             nearByHikesPoints(currentPark);
             hideNearByHikes(currentPark); 
             showNearByHikes(currentPark);
-            $(event.target).closest('li').append(`<div id="loading-hikes">Loading hiking data</div>`);
+            $(event.target).closest('li').append('<div id="loading-hikes">Loading hiking data</div>');
         });
 }
 
 
 function nearByHikesPoints(currentPark){  
     let hikesLatLong = currentPark.latLong;
-    console.log(`hikesLatLong weatherLat is ${hikesLatLong}`);
-    let hikesData = hikesLatLong.split(' ');
-    console.log(`hikesData is ${hikesData}`)
-    if(hikesData[1].slice(0,4) == 'lng:'){
+    
+    if(hikesLatLong == ""){
+        $('#loading-hikes').replaceWith('<div id="loading-hikes">The data for this site does not include location information needed to find nearby hikes.</div>');
+    } else {
+        console.log(`hikesLatLong is ${hikesLatLong}`);
+        let hikesData = hikesLatLong.split(' ');
+        console.log(`hikesData is ${hikesData}`)
+        if(hikesData[1].slice(0,4) == 'lng:'){
         let latitude = hikesData[0].slice(5,13)
         let longitude = hikesData[1].slice(4,13)
         getHikeList(currentPark, latitude, longitude);
         console.log(`Cg Data for Hikes: latitude is ${latitude}. longitude is ${longitude}`)
-    } else {
-    let latitude = hikesData[0].slice(4,14);
-    let longitude = hikesData[1].slice(5,15);
-    getHikeList(currentPark, latitude, longitude);
-    console.log(`Park Data for Hikes: latitude is ${latitude}. longitude is ${longitude}`)
-    }
+        } else {
+        let latitude = hikesData[0].slice(4,14);
+        let longitude = hikesData[1].slice(5,15);
+        
+        console.log(`Park Data for Hikes: latitude is ${latitude}. longitude is ${longitude}`)
+        let hikesUrl = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=50&key=200541410-46ce70ac245acda68d01e51b436b7326`
+        console.log(hikesUrl);
+        getHikeList(currentPark, hikesUrl);
+        }
+    }   
 }
 
 
-function getHikeList(currentPark, latitude, longitude){
-    let hikesUrl = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=10&key=200541410-46ce70ac245acda68d01e51b436b7326`
+function getHikeList(currentPark, hikesUrl){
+    
     fetch(hikesUrl)
     .then(response => {
         if (response.ok) {
@@ -265,13 +288,13 @@ function getHikeList(currentPark, latitude, longitude){
     })
     .then(responseJson => displayHikes(currentPark, responseJson))
     .catch(error => {
-        $('#js-error-message').text(`It appears we cannot get the hiking data you are looking for`)
+        $('#loading-hikes').replaceWith(`Error loading hiking data. Please try a different location.`)
     })
 }
 
 
 function displayHikes(currentPark, responseJson){
-    ('#loading-hikes').empty();
+    $('#loading-hikes').empty();
     let hikeTrails= responseJson.trails;  
     $(`#js-park-item-${currentPark.parkCode}`).append(
         `<li id="js-park-hike-item-${currentPark.parkCode}"><h3>${currentPark.name} Nearby Hikes </h3>
@@ -351,7 +374,7 @@ function grabCampgrounds(stateValue, maxLimit){
         })
         .then(responseJson => displayResultsCampgrounds(responseJson))
         .catch(error => {
-            $('#js-error-message').text(`grab campgrounds: Oops there it is. ${error.message}`)
+            $('#js-error-message').text(`There is an issue getting the list of campgrounds you requested. Please change your search and try again.  ${error.message}`)
         });
 }
 
@@ -359,6 +382,11 @@ function grabCampgrounds(stateValue, maxLimit){
 function displayResultsCampgrounds(responseJson) {
     let cgList = responseJson.data;
     console.log(`camgroundResults length is ${cgList.length}`);
+    if(cgList.length == 0){
+        $('.results').append(
+            `<li id="js-park-item-no-parks"><h4>We cannot find any national park campgrounds using this search criteria. Please try again.</h4>
+            `)
+    } else {
     $('.results').empty();   
     for (let i = 0; i < cgList.length; i++) {
         let currentCg = cgList[i];   
@@ -367,7 +395,13 @@ function displayResultsCampgrounds(responseJson) {
             <p>${currentCg.description}</p>
             <p>Find reservation and detailed directions here. <a href="${currentCg.directionsUrl}" target="_blank">${currentCg.directionsUrl}</a></p>
             <p>Directions Overview: ${currentCg.directionsoverview}</p>
-
+            `)
+        if(currentCg.latLong == ""){
+            $(`#js-park-item-${currentCg.parkCode}`).append(`
+            <div id="buttons-no-go">Weather and Hikes are not available for this site</div>
+                `)
+            } else {
+            $(`#js-park-item-${currentCg.parkCode}`).append(`
             <button type="submit" id="get-accessibility-${currentCg.parkCode}" class="">Get Accessibilty Info</button>
             <button type="submit" id="hide-accessibility-${currentCg.parkCode}" class="hidden">Hide Accessibility Info</button>
             <button type="submit" id="show-accessibility-${currentCg.parkCode}" class="hidden">Show Accessibility Info</button>
@@ -378,12 +412,11 @@ function displayResultsCampgrounds(responseJson) {
             <button type="submit" id="get-nearbyHikes-${currentCg.parkCode}" class="">Get Nearby Hikes</button>
             <button type="submit" id="hide-nearbyHikes-${currentCg.parkCode}" class="hidden">Hide Nearby Hikes</button>
             <button type="submit" id="show-nearbyHikes-${currentCg.parkCode}" class="hidden">Show Nearby Hikes</button>
-            `
-        )
+            `)}
         getAccessibility(currentCg);
         getWeather(currentCg);
         getHikes(currentCg);
-    }   
+    }}   
 };
 
 ////list accessibility features available at the campsite
