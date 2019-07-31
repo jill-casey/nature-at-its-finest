@@ -7,8 +7,14 @@ function formatUrl(stateValue, maxLimit, fields) {
     return params;
 }
 
+function formatCampgroundUrl(stateValue, maxLimit) {
+    let params = `limit=${maxLimit}&stateCode=${stateValue}&api_key=${apiKey}`
+    return params;
+}
+
 //stateSearch function only returning JSON from api with parks endpoint. 
 function stateSearch(stateValue, maxLimit, fields) {
+    displayLoading();
     const newParams = formatUrl(stateValue, maxLimit, fields)
     const newUrl = `https://developer.nps.gov/api/v1/parks?${newParams}`
     console.log(newUrl);
@@ -27,7 +33,7 @@ function stateSearch(stateValue, maxLimit, fields) {
     
 //simplified function to get the basic data each response can send for more display info
 function displayParks(responseJson){
-    $('.results').removeClass('hidden');   
+    $('.results').empty();   
     let parkList = responseJson.data;
     console.log(`parkList length is ${parkList.length}`);
     for (let i = 0; i < parkList.length; i++) {
@@ -110,10 +116,11 @@ function getWeather(currentPark){
         $(`#get-weather-${currentPark.parkCode}`).click(event => {
             event.preventDefault();
             $(`#get-weather-${currentPark.parkCode}`).toggleClass('hidden');
-            $(`#hide-weather-${currentPark.parkCode}`).toggleClass('hidden');  
+            $(`#hide-weather-${currentPark.parkCode}`).toggleClass('hidden');
             weatherPoints(currentPark);
             hideWeather(currentPark); 
             showWeather(currentPark);
+            $(event.target).closest('li').append(`<div id="loading-weather">Loading weather data</div>`);
         });
 }
 
@@ -142,20 +149,35 @@ function showWeather(currentPark){
 function weatherPoints(currentPark){  
     let weatherLatLong = currentPark.latLong;
     console.log(`line 86 weatherLat is ${weatherLatLong}`);
+    if(weatherLatLong == ""){
+        console.log(`we have an error getting the data you want`);
+    } else {
     let weatherData = weatherLatLong.split(' ');
     console.log(`weatherData is ${weatherData}`)
     if(weatherData[1].slice(0,4) == 'lng:'){
-        let latitude = weatherData[0].slice(5,13)
-        let longitude = weatherData[1].slice(4,13)
+        let lat = weatherData[0].slice(5,13);
+        let latDot = lat.indexOf('.');
+        let latSpacing = latDot + 3;
+        let latitude = lat.slice(0,latSpacing);
+        let long = weatherData[1].slice(4,15);
+        let longDot = long.indexOf('.');
+        let longSpacing = longDot + 3;
+        let longitude = long.slice(0,longSpacing);
         getForecast(currentPark, latitude, longitude);
-        console.log(`Cg Data: latitude is ${latitude}. longitude is ${longitude}`)
+        console.log(`Cg Data: latitude is ${latitude} longitude is ${longitude}`)
     } else {
-    let latitude = weatherData[0].slice(4,14);
-    let longitude = weatherData[1].slice(5,15);
+    let lat = weatherData[0].slice(4,14);
+    let latDot = lat.indexOf('.');
+    let latSpacing = latDot + 3;
+    let latitude = lat.slice(0,latSpacing);
+    let long = weatherData[1].slice(5,15);
+    let longDot = long.indexOf('.');
+    let longSpacing = longDot + 3;
+    let longitude = long.slice(0,longSpacing);
     getForecast(currentPark, latitude, longitude);
     console.log(`Park Data: latitude is ${latitude}. longitude is ${longitude}`)
     }
-}
+}}
 
 //fetch the forecast from api.weather.gov data
 function getForecast(currentPark, latitude, longitude){
@@ -166,17 +188,18 @@ function getForecast(currentPark, latitude, longitude){
         if (response.ok) {
             return response.json();
         }
-        throw new Error('response.statusText');
+        throw new Error('response.status');
     })
     .then(responseJson => displayWeather(currentPark, responseJson))
     .catch(error => {
-        $('#js-error-message').text(`Weather: Oops there it is. ${error.message}`)
+        $('#js-error-message').text(`It appears that we cannot get the weather data you requested.`)
     })
 }
 
 
 function displayWeather(currentPark, responseJson){
-    let fullWeatherPrediction = responseJson.properties;  
+    $('#loading-weather').empty();
+    let fullWeatherPrediction = responseJson.properties; 
     $(`#js-park-item-${currentPark.parkCode}`).append(
         `<li id="js-park-weather-item-${currentPark.parkCode}"><h3>${currentPark.name} Weather </h3>
         </li>`
@@ -207,6 +230,7 @@ function displayWeather(currentPark, responseJson){
             nearByHikesPoints(currentPark);
             hideNearByHikes(currentPark); 
             showNearByHikes(currentPark);
+            $(event.target).closest('li').append(`<div id="loading-hikes">Loading hiking data</div>`);
         });
 }
 
@@ -241,12 +265,13 @@ function getHikeList(currentPark, latitude, longitude){
     })
     .then(responseJson => displayHikes(currentPark, responseJson))
     .catch(error => {
-        $('#js-error-message').text(`Hikes: Error - El Capitan is too high. ${error.message}`)
+        $('#js-error-message').text(`It appears we cannot get the hiking data you are looking for`)
     })
 }
 
 
 function displayHikes(currentPark, responseJson){
+    ('#loading-hikes').empty();
     let hikeTrails= responseJson.trails;  
     $(`#js-park-item-${currentPark.parkCode}`).append(
         `<li id="js-park-hike-item-${currentPark.parkCode}"><h3>${currentPark.name} Nearby Hikes </h3>
@@ -306,11 +331,15 @@ function displayResultsStateParksNoHours(responseJson){
     $('.results').removeClass('hidden');
 };*/
 
+function displayLoading(){
+    $('.results').removeClass('hidden').append(`Loading...`);
+}
 
 
 //use the results to get the parkcode and check on campground status
-function grabCampgrounds(stateValue, maxLimit, fields){
-    const newParams = formatUrl(stateValue, maxLimit, fields)
+function grabCampgrounds(stateValue, maxLimit){
+    displayLoading();
+    const newParams = formatCampgroundUrl(stateValue, maxLimit)
     const newUrl = `https://developer.nps.gov/api/v1/campgrounds?${newParams}`
     console.log(newUrl);
     fetch(newUrl)
@@ -330,7 +359,7 @@ function grabCampgrounds(stateValue, maxLimit, fields){
 function displayResultsCampgrounds(responseJson) {
     let cgList = responseJson.data;
     console.log(`camgroundResults length is ${cgList.length}`);
-    $('.results').removeClass('hidden');   
+    $('.results').empty();   
     for (let i = 0; i < cgList.length; i++) {
         let currentCg = cgList[i];   
         $('.results').append(
@@ -358,7 +387,7 @@ function displayResultsCampgrounds(responseJson) {
 };
 
 ////list accessibility features available at the campsite
-function getAccessibility(currentCg){
+function getAccessibility(currentCg){  
     console.log(`currentCg function was called ${currentCg.parkCode}`)
     $(`#get-accessibility-${currentCg.parkCode}`).click(event => {
         event.preventDefault();
@@ -404,10 +433,10 @@ function localeSearch(){
     $('.initial-button').attr('disable',true);
     let all = document.querySelector('input[value="allParks"]');
     let only = document.querySelector('input[value="yesCampgrounds"]');   
-    $('#container').submit(event => {
+    $('#second-container').submit(event => {
             event.preventDefault();
             $('.results').empty();
-            $('.js-error-message').empty();
+            $('#js-error-message').empty();
             let stateValue = $('#userStateSelection').val();
             let maxLimit = $('#maxLimitInput').val();
             let fields = ['operatingHours','entranceFees'];
@@ -415,20 +444,22 @@ function localeSearch(){
              stateSearch(stateValue, maxLimit, fields);
             }
             else if(only.checked){
-             grabCampgrounds(stateValue, maxLimit, fields);
+             grabCampgrounds(stateValue, maxLimit);
             }else {console.log('did not find a value for localeSearch')}
             });  
 }
 
 //initial listener removes opening screen and checks to find which search screen to show. 
 function readyListener() {
-    $('#container').on('submit', event => {
+    $('#container').submit(event => {
         event.preventDefault();
         console.log('detected click');
         $('.results').empty();
-        $('.js-error-message').empty();
+        $('#js-error-message').empty();
         $('.initial-fieldset').addClass("hidden");
+        $('#container').addClass("hidden");
         $('.discover-call-to-action').addClass("hidden");
+        $('#second-container').removeClass("hidden");
         $('#locale-search').removeClass("hidden");
         localeSearch();
     });

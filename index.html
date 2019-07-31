@@ -24,22 +24,13 @@
             <p>Pack and plan for the weather where you are going and when you are going? </p>
         </section>
        
-        <form id="container">
+        <form id="container" class="">
                 <fieldset class="initial-fieldset">
                     <h3>Find national parks, local forecast, and other natural resources.</h3>  
                     <div><button type="submit" id=“initial-button” class="initial-button">GO!</button></div>
-                </fieldset>
-                
-                <fieldset id="detail-search" class="hidden">
-                    <p>search the details here</p>
-                </fieldset>
-
-                <fieldset id="weather-search" class="hidden">
-                    <p>What is the weather predicted to be like during the trip?</p>
-                    <label for="weather-location">Latitude,Longitude:</label>
-                    <input type="text" name="weather-location" id="weather-location"></input>
-                    
-                </fieldset>
+                </fieldset> 
+            </form>
+        <form id ="second-container" class="hidden">   
 
                 <fieldset id="locale-search" class="hidden">
                     <p>search to find the best location here</p>
@@ -105,24 +96,11 @@
                             <div> <input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
                                 value="allParks"></input>
                             <label for="allParks">Show all National Parks.</label></div>
-                            <div class= "hidden"> <input type="radio" name="national-parks-withCampgrounds-options" id="hikesNearZip"
-                                value="hikesNearZip"></input>
-                            <label for="hikesNearZip">Search for hike by zip code.</label></div>
                     </section>
-                    
-                    <section id="hike-zipSearch" class="hidden">
-                    <div id="addZip-field-options"><input type="text" name="zip-code" id="zip-code"></input>
-                        <label for="zip-code">Zip Code</label></div>
-                    <div id="addRadiusInZip-field-options"><input type="text" name="radius-zip" id="radius-zip"
-                            value="radiusZip">Search for hikes within</input>radius.
-                        </div>
-                    </section>        
                     <p>
                         <label for="maxLimitInput">Max number of parks do you want to see?</label>
                         <input type="number" id="maxLimitInput" min=1 value=2></p>
-
                     <button type="submit" id=“get-parks”>Get a list of Parks</button>
-
                 </fieldset>
         </form>
 

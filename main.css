@@ -53,6 +53,7 @@ form {
 
 .hidden {
     display: none;
+    border: none;
 }
 
 button {
@@ -68,3 +69,4 @@ button {
     height: 50px;
 
 }
+
