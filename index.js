@@ -269,16 +269,16 @@ function nearByHikesPoints(currentPark){
         let longitude = hikesData[1].slice(5,15);
         
         console.log(`Park Data for Hikes: latitude is ${latitude}. longitude is ${longitude}`)
-        let hikesUrl = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=50&key=200541410-46ce70ac245acda68d01e51b436b7326`
-        console.log(hikesUrl);
-        getHikeList(currentPark, hikesUrl);
+        
+        getHikeList(currentPark, latitude, longitude);
         }
     }   
 }
 
 
-function getHikeList(currentPark, hikesUrl){
-    
+function getHikeList(currentPark, latitude, longitude){
+    let hikesUrl = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=50&key=200541410-46ce70ac245acda68d01e51b436b7326`
+    console.log(hikesUrl);
     fetch(hikesUrl)
     .then(response => {
         if (response.ok) {
