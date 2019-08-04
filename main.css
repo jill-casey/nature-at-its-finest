@@ -11,16 +11,42 @@ header {
 
 
 body {
+    background: no-repeat url("images_naif/naturelaptoptitle.jpg");
     font-size: 18px;
     color: black;
     list-style: none;
     display: block;
     margin: 15px;
     padding: 10px;
+    margin-top: 300px;
+    margin-left: 200px;
 }
 
+
 /*baseline media sizing, mobile first */
-form {
+/*form {
+    border-color: black;
+    border-style: dashed;
+    border-width: 2px;
+    width: 90%;
+    text-align: left;
+    padding-left: 50px;
+    padding: 10px;
+}*/
+
+#container {
+    text-align: center;
+    display: flex;
+    flex-direction: row;border-color: black;
+    border-style: dashed;
+    border-width: 2px;
+    width: 90%;
+    text-align: center;
+    padding-left: 50px;
+    padding: 10px;
+}
+
+#second-container {
     border-color: black;
     border-style: dashed;
     border-width: 2px;
@@ -29,8 +55,6 @@ form {
     padding-left: 50px;
     padding: 10px;
 }
-
-
 #userInput {
 
     font-size: 20px;

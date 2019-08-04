@@ -74,6 +74,7 @@ function displayParks(responseJson){
 
 
 //param loaded from specific button to select park then toggle button and append operating hours
+//note that the operating hours naming conventions include "/" impeding calls using JS, renamed js-park-hours-item using a counting method intead.
 function getHours(currentPark){   
     $(`#get-hours-${currentPark.parkCode}`).click(event => {
         event.preventDefault();
@@ -83,8 +84,9 @@ function getHours(currentPark){
         console.log(`the keys returned on click are ${thisHours}`)
         console.log(`the name for this park is ${currentPark.name}`)
         for(let j=0; j < currentPark.operatingHours.length; j++){
+            let theseHours = j;
         $(`#js-park-item-${currentPark.parkCode}`).append(
-            `<li id="js-park-hours-item-${currentPark.parkCode}"><h3>${currentPark.fullName}-${currentPark.operatingHours[j].name}</h3>
+            `<li id="js-park-hours-item-${currentPark.parkCode}-${j}" class=""><h3>${currentPark.fullName}-${currentPark.operatingHours[j].name}</h3>
             <p>Standard Operating Hours at ${currentPark.operatingHours[j].name}</p>
             <p>${currentPark.operatingHours[j].description}</p>
                 <p>Monday: ${currentPark.operatingHours[j].standardHours.monday}</p>
@@ -94,20 +96,21 @@ function getHours(currentPark){
                 <p>Friday: ${currentPark.operatingHours[j].standardHours.friday}</p>
                 <p>Saturday: ${currentPark.operatingHours[j].standardHours.saturday}</p>
                 <p>Sunday: ${currentPark.operatingHours[j].standardHours.sunday}</p>
-        </li>
-        <hr>`
-        )}
-        hideHours(currentPark); 
-        showHours(currentPark);
-    })
+                <hr>
+        </li>`
+        )
+        console.log(`theseHours is ${theseHours}`)
+        hideHours(currentPark, theseHours); 
+        showHours(currentPark, theseHours);
+    }})
 }    
 
 
 //toggle hide the hours
-function hideHours(currentPark){   
+function hideHours(currentPark, theseHours){   
     $(`#hide-hours-${currentPark.parkCode}`).click(event => {
         event.preventDefault();
-        $(`#js-park-hours-item-${currentPark.parkCode}`).toggleClass('hidden');
+        $(`#js-park-hours-item-${currentPark.parkCode}-${theseHours}`).toggleClass('hidden');
         $(`#show-hours-${currentPark.parkCode}`).toggleClass('hidden');
         $(`#hide-hours-${currentPark.parkCode}`).toggleClass('hidden');      
     });
@@ -115,10 +118,10 @@ function hideHours(currentPark){
 
 
 //toggle showing the hours again after initial show-hide sequence without regenerating code
-function showHours(currentPark){   
+function showHours(currentPark, theseHours){   
     $(`#show-hours-${currentPark.parkCode}`).click(event => {
         event.preventDefault();
-        $(`#js-park-hours-item-${currentPark.parkCode}`).toggleClass('hidden');
+        $(`#js-park-hours-item-${currentPark.parkCode}-${theseHours}`).toggleClass('hidden');
         $(`#show-hours-${currentPark.parkCode}`).toggleClass('hidden');
         $(`#hide-hours-${currentPark.parkCode}`).toggleClass('hidden');      
     });  
