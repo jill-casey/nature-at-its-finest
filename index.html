@@ -8,33 +8,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
     <header role="banner">
-        <h3>Plan your adventure to experience nature at its finest!</h3>
+        <div>Plan your adventure to experience nature at its finest!</div>
+        <section class="discover-call-to-action"> <div>Discover:</div>
+                <div class="landing-page">National parks  </div>
+                <div class="landing-page">Campgrounds  </div>
+                <div class="landing-page">Hikes  </div>
+                <div class="landing-page">Open Hours  </div>
+                <div class="landing-page">& the 7-day Forecast  </div>
+            </section>
     </header>
 
     <main class="content" role="main">
-        <section class="discover-call-to-action">
-            <div>Discover:
-                <p><li>nearby national parks</li>
-                <li>open hours</li>
-                <li>campgrounds</li>
-                <li>nearby hikes</li>
-                <li>weather forecast</li>
-                <li>Coming Soon: Tides, Meteor Showers, Water Conditions, Events, and more! </li></p>
-            </div>
-
-        </section>
-       
         <form id="container" class="">
                 <fieldset class="initial-fieldset">
-                    <h3>Ready?</h3>  
-                    <div><button type="submit" id=“initial-button” class="initial-button"> Let's GO!</button></div>
+                    <div>Ready? 
+                    <button type="submit" id=“initial-button” class="initial-button"> Let's GO!</button></div>
                 </fieldset> 
             </form>
+
+            <section class ="coming-soon">
+                    <div>Coming Soon:</div>
+                    <div>Meteor Showers</div>
+                    <div>Water Conditions</div>
+                    <div>Events and more!</div>
+                </section>    
         <form id ="second-container" class="hidden">   
 
                 <fieldset id="locale-search" class="hidden">
