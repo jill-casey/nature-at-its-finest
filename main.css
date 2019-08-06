@@ -11,8 +11,21 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    
 }
 
+.flex-row-small {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.stack-items {
+    margin-right: 5px;
+   list-style: none;
+   text-align: left;
+}
 
 header {
   font-family: 'Quicksand';
@@ -54,7 +67,6 @@ body {
     padding: 10px;
 }
 
-
 .initial-fieldset {
    border: 0;
    display: block;
@@ -69,10 +81,11 @@ body {
 
 #second-container {
     width: 90%;
-    text-align: left;
     padding-left: 50px;
     padding: 10px;
     margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -83,45 +96,60 @@ body {
 
 .searchForm {
     height: 200px;
+    width: 30%;
 }
 
 
 #userInput {
     font-size: 20px;
+    width: 10px;
 }
 
-/*#maxLimitInput {
-    width: 50px;
-}*/
+legend {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 #userStateSelection {
     margin-bottom: 10px;
-    height: 50px;
+    height: 150px;
+    width: 250px;
 }
 
-/*.chooser {
-    margin-left: auto;
-    margin-right: auto;
-}*/
-
-/*#js-list-item {
-    padding-bottom: 30px;
-}*/
+#max{
+    width: 200px;
+}
+#maxLimitInput{
+    margin-top: 65px;
+    padding-left: 10px;
+    text-align: center;
+}
 
 button {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
     font-family: 'Amatic SC';
-    font-size: 80px;
     text-align: center;
     font-weight: lighter;
     font-stretch: extra-condensed;
     color: white;
     background-color: rgb(41, 41, 41);
     border-radius: 10px 10px 10px 10px; 
+}
+
+.initial-button {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 80px;
+}
+
+.get-parks{
+    margin-top:5px;
+    font-size: 40px;
+    width: 70px;
+    height: 195px;
+
 }
 
 .discover-call-to-action{
@@ -145,3 +173,39 @@ button {
 }
 
 
+.searchForm-item
+{
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+     display: inline-block;
+     position: relative;
+     background-color: #f1f1f1;
+     color: #666;
+     top: 10px;
+     height: 30px;
+     width: 30px;
+     border: 0;
+     border-radius: 50px;
+     cursor: pointer;     
+     margin-right: 7px;
+     outline: none;
+}
+
+.searchForm-item:checked::before
+{
+     position: absolute;
+     font: 13px/1 'Open Sans', sans-serif;
+     left: 11px;
+     top: 7px;
+     content: '\02143';
+     transform: rotate(40deg);
+}
+.searchForm-item:hover
+{
+     background-color: #f7f7f7;
+}
+.searchForm-item:checked
+{
+     background-color: #f1f1f1;
+}

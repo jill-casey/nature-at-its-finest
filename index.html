@@ -40,18 +40,21 @@
     </form>
     </section>  
     <main class="content" role="main">
-        <div id="NAIF-title" class="hidden">Nature at Its Finest</div>      
+        <div id="NAIF-title" class="hidden">Nature at Its Finest</div>
+        <h3 id="form-label" class="hidden"> Discover National Parks </h3> 
         <form id ="second-container" class="hidden">  
-                <h3 id="form-label"> Discover National Parks </h3> 
+                
                 <fieldset id="campgrounds" class ="searchForm">
-                 <legend>Parks</legend>  
-                            <div><input type="radio" name="national-parks-withCampgrounds-options" id="yesCampgrounds"
-                                value="yesCampgrounds"></input>
-                            <label for="yesCampgrounds">With Campgrounds</label></div>
-                            <div> <input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
-                                value="allParks"></input>
-                            <label for="allParks">Without Campgrounds</label></div>
-                </fieldset>  
+                 <legend>Parks</legend> 
+            
+                       <p><input type="radio" name="national-parks-withCampgrounds-options" id="yesCampgrounds"
+                                value="yesCampgrounds" class="searchForm-item">    With Campgrounds</input></p>
+                              
+                        <p><input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
+                                value="allParks" class="searchForm-item" checked="true">    Without Campgrounds</input>  </p>
+
+                 
+                            </fieldset>  
                 <fieldset id="states" class ="searchForm">
                     <Legend>Pick a state</Legend>
                     <select multiple id="userStateSelection">
@@ -109,10 +112,10 @@
                     </select>
                 </fieldset>
                 <fieldset id="max" class ="searchForm">
-                    <legend>Results per page?</legend>   
-                    <input type="number" id="maxLimitInput" min=1 value=2>
+                    <legend>Results Limit</legend>   
+                    <input type="number" id="maxLimitInput" min=1 value=15>
                 </fieldset>
-                <button type="submit" id=“get-parks”>Get a list of Parks</button>
+                <button type="submit" id=“get-parks” class="get-parks">Get Park List</button>
         </form>
 
     

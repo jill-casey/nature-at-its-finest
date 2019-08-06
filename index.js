@@ -217,7 +217,7 @@ function displayWeather(currentPark, responseJson){
     
     let fullWeatherPrediction = responseJson.properties; 
     $(`#js-park-item-${currentPark.parkCode}`).append(
-        `<li id="js-park-weather-item-${currentPark.parkCode}"><h3>${currentPark.name} Weather </h3>
+        `<li id="js-park-weather-item-${currentPark.parkCode}" class="flex-row-small"><h3>${currentPark.name} Weather </h3>
         </li>`
         ); 
     $('#loading-weather').empty();       
@@ -476,13 +476,16 @@ function localeSearch(){
             let stateValue = $('#userStateSelection').val();
             let maxLimit = $('#maxLimitInput').val();
             let fields = ['operatingHours','entranceFees'];
+    
             if(all.checked){
              stateSearch(stateValue, maxLimit, fields);
             }
             else if(only.checked){
              grabCampgrounds(stateValue, maxLimit);
-            }else {console.log('did not find a value for localeSearch')}
-            });  
+            }else {
+                $('.results').append('Please select a State to begin your search.')}
+            }
+     ); 
 }
 
 //initial listener removes opening screen and checks to find which search screen to show. 
@@ -497,9 +500,11 @@ function readyListener() {
         $('#container').addClass("hidden");
         $('.discover-call-to-action').addClass("hidden");
         $('#NAIF-title').removeClass("hidden");
+        $('#form-label').removeClass("hidden");
         $('#second-container').removeClass("hidden");
         $('#second-container').addClass("flex-row");
         $('#locale-search').removeClass("hidden");
+       $('.campgrounds').addClass("stack-items");
         document.body.style.background = "url('images_naif/naturelaptop.png') no-repeat";
         document.body.style.backgroundSize = "contain";
         localeSearch();
