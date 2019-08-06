@@ -493,10 +493,15 @@ function readyListener() {
         $('.results').empty();
         $('#js-error-message').empty();
         $('.initial-fieldset').addClass("hidden");
+        $('header').addClass("hidden");
         $('#container').addClass("hidden");
         $('.discover-call-to-action').addClass("hidden");
+        $('#NAIF-title').removeClass("hidden");
         $('#second-container').removeClass("hidden");
+        $('#second-container').addClass("flex-row");
         $('#locale-search').removeClass("hidden");
+        document.body.style.background = "url('images_naif/naturelaptop.png') no-repeat";
+        document.body.style.backgroundSize = "contain";
         localeSearch();
     });
 }

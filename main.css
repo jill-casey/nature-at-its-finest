@@ -2,8 +2,20 @@
     box-sizing: border-box;
 }
 
+.hidden {
+    display: none;
+    border: none;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
 header {
-    font-family: 'Quicksand';
+  font-family: 'Quicksand';
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -12,7 +24,13 @@ header {
   line-height: 30px;
 }
 
-
+#NAIF-title {
+  font-family: 'Amatic SC';
+  font-size: 40px;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
 
 body {
     background: no-repeat url("images_naif/naturelaptoptitle.png");
@@ -20,33 +38,18 @@ body {
     font-size: 18px;
     color: black;
     list-style: none;
-    display: block;
+    /*display: block;*/
     margin: 15px;
     padding: 10px;
     margin-top: 275px;
     margin-left: 90px;
 }
 
-
 /*baseline media sizing, mobile first */
-/*form {
-    border-color: black;
-    border-style: dashed;
-    border-width: 2px;
-    width: 90%;
-    text-align: left;
-    padding-left: 50px;
-    padding: 10px;
-}*/
-
 #container {
     text-align: center;
-    /*display: flex;*/
-   /* flex-direction: row;
-    justify-content: space-around;*/
     border-color: 0;
     width: 90%;
-   /* text-align: center;*/
     padding-left: 50px;
     padding: 10px;
 }
@@ -59,43 +62,51 @@ body {
    margin-right: auto;
    margin-left: auto;
    font-size: 80px;
-    /*font-weight: bold;*/
     font-family: 'Amatic SC';
     font-weight: lighter;
     font-stretch: extra-condensed;
 }
 
 #second-container {
-    border-color: black;
-    border-style: dashed;
-    border-width: 2px;
     width: 90%;
     text-align: left;
     padding-left: 50px;
     padding: 10px;
+    margin-top: 10px;
 }
+
+
+#locale-search {
+    width: 80%;
+    border:0; 
+}
+
+.searchForm {
+    height: 200px;
+}
+
+
 #userInput {
     font-size: 20px;
 }
 
-#maxLimitInput {
+/*#maxLimitInput {
     width: 50px;
+}*/
+
+#userStateSelection {
+    margin-bottom: 10px;
+    height: 50px;
 }
 
-.chooser {
+/*.chooser {
     margin-left: auto;
     margin-right: auto;
-}
+}*/
 
-#js-list-item {
+/*#js-list-item {
     padding-bottom: 30px;
-
-}
-
-.hidden {
-    display: none;
-    border: none;
-}
+}*/
 
 button {
     margin-left: auto;
@@ -104,7 +115,6 @@ button {
     padding-top: 20px;
     padding-bottom: 20px;
     font-family: 'Amatic SC';
-    /*font-family: 'Quicksand';*/
     font-size: 80px;
     text-align: center;
     font-weight: lighter;
@@ -112,16 +122,10 @@ button {
     color: white;
     background-color: rgb(41, 41, 41);
     border-radius: 10px 10px 10px 10px; 
-
-}
-
-#userStateSelection {
-    margin-bottom: 10px;
-    height: 50px;
 }
 
 .discover-call-to-action{
-    width: 70%;
+    width: 75%;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -130,18 +134,14 @@ button {
     font-size: 20px;
 }
 
-.coming-soon{
-    transition-timing-function: ease-in;
+#coming-soon{
     width: 70%;
     display: flex;
     justify-content: space-evenly;
-    flex-direction: row;
-    
+    flex-direction: row; 
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Quicksand';
-    
-    
+    font-family: 'Quicksand';   
 }
 
 

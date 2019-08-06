@@ -14,37 +14,46 @@
 </head>
 
 <body>
-    <header role="banner">
+    <section class="landing-page">
+    <header role="banner" id="initial-banner" class="">
         <div>Plan your adventure to experience nature at its finest!</div>
         <section class="discover-call-to-action"> <div>Discover:</div>
-                <div class="landing-page">National parks  </div>
-                <div class="landing-page">Campgrounds  </div>
-                <div class="landing-page">Hikes  </div>
-                <div class="landing-page">Open Hours  </div>
-                <div class="landing-page">& the 7-day Forecast  </div>
+                <div> National parks,  </div>
+                <div> Campgrounds,  </div>
+                <div> Hikes,  </div>
+                <div> Open Hours,  </div>
+                <div> & the 7-day Forecast  </div>
             </section>
     </header>
-
-    <main class="content" role="main">
         <form id="container" class="">
                 <fieldset class="initial-fieldset">
                     <div>Ready? 
                     <button type="submit" id=“initial-button” class="initial-button"> Let's GO!</button></div>
                 </fieldset> 
-            </form>
-
-            <section class ="coming-soon">
-                    <div>Coming Soon:</div>
-                    <div>Meteor Showers</div>
-                    <div>Water Conditions</div>
-                    <div>Events and more!</div>
-                </section>    
-        <form id ="second-container" class="hidden">   
-
-                <fieldset id="locale-search" class="hidden">
-                    <p>search to find the best location here</p>
-                    <h3 id="form-label"> Find a Nearby National Park</h3>   
-                    <legend>Select State</legend>
+        <footer id="coming-soon" class= "">
+                    <div>Coming Soon Info on:</div>
+                    <div>Meteor Showers,</div>
+                    <div>Water Conditions,</div>
+                    <div>Events,</div>
+                    <div>and more!</div>
+        </footer>
+    </form>
+    </section>  
+    <main class="content" role="main">
+        <div id="NAIF-title" class="hidden">Nature at Its Finest</div>      
+        <form id ="second-container" class="hidden">  
+                <h3 id="form-label"> Discover National Parks </h3> 
+                <fieldset id="campgrounds" class ="searchForm">
+                 <legend>Parks</legend>  
+                            <div><input type="radio" name="national-parks-withCampgrounds-options" id="yesCampgrounds"
+                                value="yesCampgrounds"></input>
+                            <label for="yesCampgrounds">With Campgrounds</label></div>
+                            <div> <input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
+                                value="allParks"></input>
+                            <label for="allParks">Without Campgrounds</label></div>
+                </fieldset>  
+                <fieldset id="states" class ="searchForm">
+                    <Legend>Pick a state</Legend>
                     <select multiple id="userStateSelection">
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -98,19 +107,12 @@
                         <option value="WI">Wisconsin</option>
                         <option value="WY">Wyoming</option>
                     </select>
-                    <section id="includeCampgrounds" class="js-campground-question">
-                            <div> <input type="radio" name="national-parks-withCampgrounds-options" id="yesCampgrounds"
-                                value="yesCampgrounds"></input>
-                            <label for="yesCampgrounds">Find Campgrounds at National Parks.</label></div>
-                            <div> <input type="radio" name="national-parks-withCampgrounds-options" id="allParks"
-                                value="allParks"></input>
-                            <label for="allParks">Show all National Parks.</label></div>
-                    </section>
-                    <p>
-                        <label for="maxLimitInput">Max number of parks do you want to see?</label>
-                        <input type="number" id="maxLimitInput" min=1 value=2></p>
-                    <button type="submit" id=“get-parks”>Get a list of Parks</button>
                 </fieldset>
+                <fieldset id="max" class ="searchForm">
+                    <legend>Results per page?</legend>   
+                    <input type="number" id="maxLimitInput" min=1 value=2>
+                </fieldset>
+                <button type="submit" id=“get-parks”>Get a list of Parks</button>
         </form>
 
     
