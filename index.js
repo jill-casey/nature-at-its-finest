@@ -90,7 +90,9 @@ function getHours(currentPark){
         for(let j=0; j < currentPark.operatingHours.length; j++){
             let theseHours = j;
         $(`#js-park-item-${currentPark.parkCode}`).append(
-            `<li id="js-park-hours-item-${currentPark.parkCode}-${j}" class="hours-container"><h3>${currentPark.fullName}-${currentPark.operatingHours[j].name}</h3>
+            `<li id="js-park-hours-item-${currentPark.parkCode}-${j}" class="">
+            <section class="hours-container">
+            <h3>${currentPark.fullName}-${currentPark.operatingHours[j].name}</h3>
             <section class="hours-header">
             <div>Standard Operating Hours at ${currentPark.operatingHours[j].name}</div>
             <p>${currentPark.operatingHours[j].description}</p>
@@ -103,6 +105,7 @@ function getHours(currentPark){
                 <div class="hours">Fri: ${currentPark.operatingHours[j].standardHours.friday}</div>
                 <div class="hours">Sat: ${currentPark.operatingHours[j].standardHours.saturday}</div>
                 <div class="hours">Sun: ${currentPark.operatingHours[j].standardHours.sunday}</div>
+            </section>
             </section>
         </li>`
         )
@@ -117,9 +120,9 @@ function getHours(currentPark){
 function hideHours(currentPark, theseHours){   
     $(`#hide-hours-${currentPark.parkCode}`).click(event => {
         event.preventDefault();
-        $(`#js-park-hours-item-${currentPark.parkCode}-${theseHours}`).toggleClass('hidden');
-        $(`#show-hours-${currentPark.parkCode}`).toggleClass('hidden');
-        $(`#hide-hours-${currentPark.parkCode}`).toggleClass('hidden');      
+        $(`#js-park-hours-item-${currentPark.parkCode}-${theseHours}`).addClass("hidden");
+        $(`#show-hours-${currentPark.parkCode}`).toggleClass("hidden");
+        $(`#hide-hours-${currentPark.parkCode}`).toggleClass("hidden");      
     });
 }
 
@@ -215,7 +218,7 @@ function getForecast(currentPark, latitude, longitude){
     })
     .then(responseJson => displayWeather(currentPark, responseJson))
     .catch(error => {
-        $('#loading-weather').replaceAll(`It appears that we cannot get the weather data you requested.`)
+        $('#loading-weather').replaceWith(`It appears that we cannot get the weather data you requested.`)
     })
 }
 
@@ -317,7 +320,7 @@ function displayHikes(currentPark, responseJson){
         console.log(`the hike Trails object length is ${hikeTrails.length}`);
         for(let h=0; h < hikeTrails.length; h++){
         $(`#js-park-hike-item-${currentPark.parkCode}`).append(     
-            `<li id="js-park-hike-details-${currentPark.parkCode}" class="hikeData">
+            `<li id="js-park-hike-details-${currentPark.parkCode}" class="">
             <p><div class="hikeName"><h4>${hikeTrails[h].name}</div>
             <div class="hikeType">${hikeTrails[h].type}</div>
             <div class="hikeSummary">${hikeTrails[h].summary}</div>

@@ -125,7 +125,6 @@ legend {
     margin-top: 65px;
     text-align: center;
     width: 100%;
-    
     border: solid 1px lightgrey;
 }
 
@@ -155,6 +154,12 @@ legend {
     width: 20%;
     border-left: solid 1px lightgrey;
     font-size: 14px;
+    margin-left: 1px;
+}
+
+.hours1{
+    font-size: 14px;
+    width: 20%;
     margin-left: 1px;
 }
 
@@ -452,7 +457,9 @@ button {
         margin-left: auto;
         margin-right: auto;
     }
-  
+    #form-label {
+        margin-left: 50px;
+       }
 
 
     .searchForm {
