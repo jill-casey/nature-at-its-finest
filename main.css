@@ -36,9 +36,7 @@
 }
 
 .head-img {
-    
     height: 300px;
-    
     background: no-repeat url("images_naif/natureiphonetitle.png");
     background-size: contain;
 }
@@ -62,16 +60,17 @@ header {
   text-align: center;
 }
 
+#form-label {
+ margin-left: 5px;
+}
+
 body {
     font-size: 18px;
     color: black;
     list-style: none;
-    margin: 15px;
-    padding: 10px;
-    /*margin-top: 275px;*/
-   
+    /*margin: 15px;*/
+    padding: 5px;   
 }
-
 
 #container {
     text-align: center;
@@ -81,7 +80,6 @@ body {
     padding: 10px;
 }
 
-
 #second-container {
     width: 90%;
     padding: 10px;
@@ -89,7 +87,6 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-
 
 #locale-search {
     width: 80%;
@@ -99,8 +96,12 @@ body {
 .searchForm {
     height: 200px;
     width: 300px;
+    margin-left:auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
 }
-
 
 #userInput {
     font-size: 20px;
@@ -114,19 +115,47 @@ legend {
 
 #userStateSelection {
     margin-bottom: 10px;
+    margin-right:auto;
+    margin-left: auto;
     height: 150px;
-    width: 150px;
+    width: 275px;
 }
 
-
 #maxLimitInput{
-    margin-left: 30px;
-    margin-right: 30px;
     margin-top: 65px;
-    padding-left: 10px;
     text-align: center;
-    width: 100px;
+    width: 100%;
+    
+    border: solid 1px lightgrey;
+}
+
+.hours-container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    border: solid 1px #666;
+}
+
+.hours-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: dashed 1px black;
+}
+
+.hours-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.hours {
+    width: 20%;
+    border-left: solid 1px lightgrey;
+    font-size: 14px;
+    margin-left: 1px;
 }
 
 button {
@@ -138,7 +167,6 @@ button {
     background-color: rgb(41, 41, 41);
     border-radius: 10px 10px 10px 10px; 
 }
-
 
 .initial-fieldset {
     border: 0;
@@ -162,9 +190,10 @@ button {
 .get-parks{
     margin-top:5px;
     font-size: 40px;
-    width: 90%;
+    width: 300px;
     height: 75px;
-
+    margin-left:auto;
+    margin-right: auto;
 }
 
 .discover-call-to-action{
@@ -191,7 +220,6 @@ button {
     margin-right: auto;
     font-family: 'Quicksand';   
 }
-
 
 .searchForm-item
 {
@@ -221,10 +249,12 @@ button {
      content: '\02143';
      transform: rotate(40deg);
 }
+
 .searchForm-item:hover
 {
      background-color: #f7f7f7;
 }
+
 .searchForm-item:checked
 {
      background-color: #f1f1f1;
@@ -237,19 +267,17 @@ button {
     border-color: #666;
     border: 1px;
     border-style: solid;
-
 }
 
 .weather-aside {
-    width: 40%;
+    width: 150px;
     padding-left: 10px;
     border: 2px;
     border-right-style: dashed;
     border-color: #666;
     background-color: rgba(120, 143, 148, 0.548);
-    height: 66px;
+    height: 70px;
   }
-
 
   .find-parks-layout{
     display: flex;
@@ -260,8 +288,12 @@ button {
    width: 200px;
 }  
 
+.results {
+    margin-left: 5px;
+}
+
 /*tablets*/
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 600px) {
     .head-img {
        display: none;
     }
@@ -270,10 +302,12 @@ button {
         background: no-repeat url("images_naif/naturelaptoptitle.png");
         background-size: contain;
         margin-top: 200px;
-        margin-left: 90px;
-        
+        /*margin-left: 90px;*/    
     }
 
+    .indent {
+        margin-left: 5px;
+    }
 
     #NAIF-title {
         font-family: 'Amatic SC';
@@ -283,10 +317,14 @@ button {
         text-align: center;
       }
 
+      #form-label {
+        margin-left: 20px;
+      }
+
       header {
         font-family: 'Quicksand';
         display: block;
-        margin-left: auto;
+        margin-left: 20px;
         margin-right: auto;
         height: 100px;
         font-size: 24px;
@@ -295,31 +333,41 @@ button {
 
     .searchForm {
         height: 200px;
-        width: 90%;
+        width: 500px;
+        margin-left:auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
     }
 
     #max{
-        width: 200px;
+        height: 100px;
     }
 
     #userStateSelection {
         margin-bottom: 10px;
         height: 150px;
-        width: 250px;
+        width: 450px;
     }
 
     #maxLimitInput{
-        margin-top: 65px;
+        margin-top: 20px;
         padding-left: 10px;
         text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 450px;
+        border: solid 1px lightgrey;
     }
 
     .get-parks{
         margin-top:5px;
         font-size: 40px;
-        width: 70px;
-        height: 195px;
-    
+        width: 500px;
+        height: 100px;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     #second-container {
@@ -331,14 +379,14 @@ button {
         margin-right: auto;
     }
 
-    .discover-call-to-action{
-        width: 75%;
+    .discover-call-to-action {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-        padding: 10px;
-        margin-left: 20px;
-        font-size: 20px;
+        /*padding: 10px;*/
+        margin-left: 0px;
+        font-size: 14px;
     }
 
     .initial-button {
@@ -355,8 +403,18 @@ button {
 }
 
 
+/*adjusting*/
+@media screen and (min-width: 800px) {
+    header {
+        margin-left: 50px;
+    }
 
 
+    .discover-call-to-action {
+        width: 80%;
+        font-size: 18px;
+    }
+}
 
 /*desktop*/
 @media screen and (min-width: 980px) {
@@ -372,40 +430,73 @@ button {
     }
     
     #NAIF-title {
-        font-family: 'Amatic SC';
-        font-size: 40px;
-        margin: 0px;
-        padding: 0px;
-        text-align: center;
+        display: none;
       }
 
       header {
+          width: 90%;
         font-family: 'Quicksand';
         display: block;
-        margin-left: auto;
+        margin-left: 30px;
         margin-right: auto;
         height: 100px;
         font-size: 24px;
         line-height: 30px;
       }  
 
+      #second-container {
+        width: 900px;
+        padding-left: 50px;
+        padding: 10px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+  
+
+
     .searchForm {
         height: 200px;
-        width: 30%;
+        width: 33%;
     }
 
-    #max{
-        width: 200px;
+    #campgrounds {
+        width: 33%;
+    }
+
+    #userStateSelection {
+        margin-bottom: 10px;
+        width: 90%;
+    }
+
+    #max {
+        height: 200px;
+    }
+
+    #maxLimitInput{
+        margin-top: 60px;
+        padding-left: 2px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        border: solid 1px lightgrey;
     }
 
     .discover-call-to-action{
-        width: 75%;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
+        width: 100%;
+        
         padding: 10px;
         margin-left: 20px;
         font-size: 20px;
+    }
+
+    .get-parks{
+        margin-top:5px;
+        font-size: 40px;
+        width: 100px;
+        height: 200px;
+    
     }
 
     .initial-button {

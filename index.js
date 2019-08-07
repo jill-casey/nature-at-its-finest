@@ -1,12 +1,16 @@
 'use strict'
 
+//national parks API
 const apiKey = 'z5UamSS2tY6wiHIGqaDAN45vz0U1M4VHB55z8U0n';
 
+
+//formating the parks API URL
 function formatUrl(stateValue, maxLimit, fields) {
     let params = `stateCode=${stateValue}&limit=${maxLimit}&fields=${fields}&api_key=${apiKey}`
     return params;
 }
 
+//formatiing the campground URL
 function formatCampgroundUrl(stateValue, maxLimit) {
     let params = `limit=${maxLimit}&stateCode=${stateValue}&api_key=${apiKey}`
     return params;
@@ -86,17 +90,20 @@ function getHours(currentPark){
         for(let j=0; j < currentPark.operatingHours.length; j++){
             let theseHours = j;
         $(`#js-park-item-${currentPark.parkCode}`).append(
-            `<li id="js-park-hours-item-${currentPark.parkCode}-${j}" class=""><h3>${currentPark.fullName}-${currentPark.operatingHours[j].name}</h3>
-            <p>Standard Operating Hours at ${currentPark.operatingHours[j].name}</p>
+            `<li id="js-park-hours-item-${currentPark.parkCode}-${j}" class="hours-container"><h3>${currentPark.fullName}-${currentPark.operatingHours[j].name}</h3>
+            <section class="hours-header">
+            <div>Standard Operating Hours at ${currentPark.operatingHours[j].name}</div>
             <p>${currentPark.operatingHours[j].description}</p>
-                <p>Monday: ${currentPark.operatingHours[j].standardHours.monday}</p>
-                <p>Tuesday: ${currentPark.operatingHours[j].standardHours.tuesday}</p>
-                <p>Wedesday: ${currentPark.operatingHours[j].standardHours.wednesday}</p>
-                <p>Thursday: ${currentPark.operatingHours[j].standardHours.thursday}</p>
-                <p>Friday: ${currentPark.operatingHours[j].standardHours.friday}</p>
-                <p>Saturday: ${currentPark.operatingHours[j].standardHours.saturday}</p>
-                <p>Sunday: ${currentPark.operatingHours[j].standardHours.sunday}</p>
-                <hr>
+            </section>
+            <section class="hours-grid">
+                <div class="hours1">Mon: ${currentPark.operatingHours[j].standardHours.monday}</div>
+                <div class="hours">Tue: ${currentPark.operatingHours[j].standardHours.tuesday}</div>
+                <div class="hours">Wed: ${currentPark.operatingHours[j].standardHours.wednesday}</div>
+                <div class="hours">Thu: ${currentPark.operatingHours[j].standardHours.thursday}</div>
+                <div class="hours">Fri: ${currentPark.operatingHours[j].standardHours.friday}</div>
+                <div class="hours">Sat: ${currentPark.operatingHours[j].standardHours.saturday}</div>
+                <div class="hours">Sun: ${currentPark.operatingHours[j].standardHours.sunday}</div>
+            </section>
         </li>`
         )
         console.log(`theseHours is ${theseHours}`)
@@ -127,7 +134,7 @@ function showHours(currentPark, theseHours){
     });  
 }
 
-
+//run the weather functions and toggle visibility
 function getWeather(currentPark){
         $(`#get-weather-${currentPark.parkCode}`).click(event => {
             event.preventDefault();
@@ -161,7 +168,7 @@ function showWeather(currentPark){
     });  
 }
 
-
+//parse the lat long to get the weather points structured
 function weatherPoints(currentPark){  
     let weatherLatLong = currentPark.latLong;
     console.log(`line 86 weatherLat is ${weatherLatLong}`);
@@ -212,7 +219,7 @@ function getForecast(currentPark, latitude, longitude){
     })
 }
 
-
+//display the weather on the DOM
 function displayWeather(currentPark, responseJson){
     
     let fullWeatherPrediction = responseJson.properties; 
@@ -243,7 +250,7 @@ function displayWeather(currentPark, responseJson){
         
     }       
 
-
+//run the hikes functios nad toggle the visibility
     function getHikes(currentPark){
         $(`#get-nearbyHikes-${currentPark.parkCode}`).click(event => {
             event.preventDefault();
@@ -256,7 +263,7 @@ function displayWeather(currentPark, responseJson){
         });
 }
 
-
+//parse the lat long data to send to the hikes api
 function nearByHikesPoints(currentPark){  
     let hikesLatLong = currentPark.latLong;
     
@@ -282,7 +289,7 @@ function nearByHikesPoints(currentPark){
     }   
 }
 
-
+//reach out to the hike API and get data
 function getHikeList(currentPark, latitude, longitude){
     let hikesUrl = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=50&key=200541410-46ce70ac245acda68d01e51b436b7326`
     console.log(hikesUrl);
@@ -299,7 +306,7 @@ function getHikeList(currentPark, latitude, longitude){
     })
 }
 
-
+//display the hike information
 function displayHikes(currentPark, responseJson){
     $('#loading-hikes').empty();
     let hikeTrails= responseJson.trails;  
@@ -310,11 +317,12 @@ function displayHikes(currentPark, responseJson){
         console.log(`the hike Trails object length is ${hikeTrails.length}`);
         for(let h=0; h < hikeTrails.length; h++){
         $(`#js-park-hike-item-${currentPark.parkCode}`).append(     
-            `<li id="js-park-hike-details-${currentPark.parkCode}">
-            <p><div class="hikeName"><h4>${hikeTrails[h].name}</h4></div>
+            `<li id="js-park-hike-details-${currentPark.parkCode}" class="hikeData">
+            <p><div class="hikeName"><h4>${hikeTrails[h].name}</div>
             <div class="hikeType">${hikeTrails[h].type}</div>
             <div class="hikeSummary">${hikeTrails[h].summary}</div>
-            <div class="hikeLength"> Length: ${hikeTrails[h].length} Ascent: ${hikeTrails[h].ascent} Descent: ${hikeTrails[h].descent}</div>
+            <div class="hikeLength"> Length: ${hikeTrails[h].length} </div>
+            <div class="hikeAscentDescent">Ascent: ${hikeTrails[h].ascent} Descent: ${hikeTrails[h].descent}</div>
             <div class= "hikeUrl" ><a href="${hikeTrails[h].url}" target="_blank">${hikeTrails[h].url}</a></div>
             </p><hr></li>`      
         )};
@@ -342,7 +350,7 @@ function showNearByHikes(currentPark){
     });  
 }
 /*
-//national parks with entrance fees
+//national parks with entrance fees roll out at a later date
 function displayResultsStateParksNoHours(responseJson){
     let parkList = responseJson.data;
     console.log(`parkList length is ${parkList.length}`);
@@ -448,7 +456,7 @@ function getAccessibility(currentCg){
     showAccessibility(currentCg);
     });   
 }
-
+//hide accessibilty information
 function hideAccessibility(currentCg){   
     $(`#hide-accessibility-${currentCg.parkCode}`).click(event => {
         event.preventDefault();
@@ -500,24 +508,13 @@ function readyListener() {
         $('.results').empty();
         $('#js-error-message').empty();
         $('.landing-page').addClass("hidden");
-        //$('.initial-fieldset').addClass("hidden");
         $('header').addClass("hidden");
-        //$('#container').addClass("hidden");
-        //$('.discover-call-to-action').addClass("hidden");
         $('#NAIF-title').removeClass("hidden");
         $('#form-label').removeClass("hidden");
         $('#second-container').removeClass("hidden");
         $('#locale-search').removeClass("hidden");
        $('.campgrounds').addClass("stack-items");
        $('#second-container').addClass("find-parks-layout");
-
-        /*if ($(window).width() > 980) {  
-        document.body.style.background = "url('images_naif/naturelaptop.png') no-repeat";
-        document.body.style.backgroundSize = "contain";   
-        } else if (($(window).width() > 500) && ($(window).width() < 980)) {
-            document.body.style.background = "url('images_naif/natureipad.png') no-repeat";
-            document.body.style.backgroundSize = "contain";
-        }*/
         localeSearch();
     });
 }
