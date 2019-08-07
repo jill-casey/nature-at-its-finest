@@ -437,7 +437,7 @@ button {
           width: 90%;
         font-family: 'Quicksand';
         display: block;
-        margin-left: 30px;
+        margin-left: 50px;
         margin-right: auto;
         height: 100px;
         font-size: 24px;
@@ -484,10 +484,10 @@ button {
     }
 
     .discover-call-to-action{
-        width: 90%;
+        width: 80%;
         
         padding: 10px;
-        margin-left: 40px;
+        margin-left: 60px;
         font-size: 20px;
     }
 
