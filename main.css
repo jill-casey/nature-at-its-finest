@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
 /*baseline media sizing, mobile first */
 .hidden {
     display: none;
@@ -10,7 +11,7 @@
 .flex-row {
     display: flex;
     flex-direction: row;
-    align-items: center;    
+    align-items: center;
 }
 
 .flex-row-small {
@@ -22,17 +23,17 @@
 
 .stack-items {
     margin-right: 5px;
-   list-style: none;
-   text-align: left;
+    list-style: none;
+    text-align: left;
 }
 
 .stack-form-items {
     display: flex;
     flex-direction: column;
     margin-right: 5px;
-   list-style: none;
-   text-align: left;
-   width: 200px;
+    list-style: none;
+    text-align: left;
+    width: 200px;
 }
 
 .head-img {
@@ -42,34 +43,33 @@
 }
 
 header {
-  font-family: 'Quicksand';
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  font-size: 22px;
-  line-height: 30px;
-  font-weight: bold; 
+    font-family: 'Quicksand';
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: bold;
 }
 
 #NAIF-title {
-  font-family: 'Amatic SC';
-  font-size: 28px;
-  margin: 0px;
-  padding: 0px;
-  text-align: center;
+    font-family: 'Amatic SC';
+    font-size: 28px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
 }
 
 #form-label {
- margin-left: 5px;
+    margin-left: 5px;
 }
 
 body {
     font-size: 18px;
     color: black;
     list-style: none;
-    /*margin: 15px;*/
-    padding: 5px;   
+    padding: 5px;
 }
 
 #container {
@@ -90,17 +90,17 @@ body {
 
 #locale-search {
     width: 80%;
-    border:0; 
+    border: 0;
 }
 
 .searchForm {
     height: 200px;
     width: 300px;
-    margin-left:auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
 #userInput {
@@ -115,13 +115,13 @@ legend {
 
 #userStateSelection {
     margin-bottom: 10px;
-    margin-right:auto;
+    margin-right: auto;
     margin-left: auto;
     height: 150px;
     width: 275px;
 }
 
-#maxLimitInput{
+#maxLimitInput {
     margin-top: 65px;
     text-align: center;
     width: 100%;
@@ -135,7 +135,7 @@ legend {
     border: solid 1px #666;
 }
 
-.hours-header{
+.hours-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -147,7 +147,6 @@ legend {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-
 }
 
 .hours {
@@ -157,7 +156,7 @@ legend {
     margin-left: 1px;
 }
 
-.hours1{
+.hours1 {
     font-size: 14px;
     width: 20%;
     margin-left: 1px;
@@ -170,7 +169,7 @@ button {
     font-stretch: extra-condensed;
     color: white;
     background-color: rgb(41, 41, 41);
-    border-radius: 10px 10px 10px 10px; 
+    border-radius: 10px 10px 10px 10px;
 }
 
 .initial-fieldset {
@@ -179,11 +178,11 @@ button {
     margin-right: auto;
     margin-left: auto;
     font-size: 50px;
-     font-family: 'Amatic SC';
-     font-weight: lighter;
-     font-stretch: extra-condensed;
-     padding-top: 0px;
- }
+    font-family: 'Amatic SC';
+    font-weight: lighter;
+    font-stretch: extra-condensed;
+    padding-top: 0px;
+}
 
 .initial-button {
     margin-left: auto;
@@ -192,16 +191,16 @@ button {
     font-size: 40px;
 }
 
-.get-parks{
-    margin-top:5px;
+.get-parks {
+    margin-top: 5px;
     font-size: 40px;
     width: 300px;
     height: 75px;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
 }
 
-.discover-call-to-action{
+.discover-call-to-action {
     width: 75%;
     display: flex;
     flex-direction: column;
@@ -215,54 +214,50 @@ button {
     margin-left: 50px;
 }
 
-#coming-soon{
+#coming-soon {
     font-size: 18px;
     line-height: 19px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; 
+    align-items: flex-end;
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Quicksand';   
+    font-family: 'Quicksand';
 }
 
-.searchForm-item
-{
-     -webkit-appearance: none;
-     -moz-appearance: none;
-     appearance: none;
-     display: inline-block;
-     position: relative;
-     background-color: #f1f1f1;
-     color: #666;
-     top: 10px;
-     height: 30px;
-     width: 30px;
-     border: 0;
-     border-radius: 50px;
-     cursor: pointer;     
-     margin-right: 7px;
-     outline: none;
+.searchForm-item {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    position: relative;
+    background-color: #f1f1f1;
+    color: #666;
+    top: 10px;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 7px;
+    outline: none;
 }
 
-.searchForm-item:checked::before
-{
-     position: absolute;
-     font: 13px/1 'Open Sans', sans-serif;
-     left: 11px;
-     top: 7px;
-     content: '\02143';
-     transform: rotate(40deg);
+.searchForm-item:checked::before {
+    position: absolute;
+    font: 13px/1 'Open Sans', sans-serif;
+    left: 11px;
+    top: 7px;
+    content: '\02143';
+    transform: rotate(40deg);
 }
 
-.searchForm-item:hover
-{
-     background-color: #f7f7f7;
+.searchForm-item:hover {
+    background-color: #f7f7f7;
 }
 
-.searchForm-item:checked
-{
-     background-color: #f1f1f1;
+.searchForm-item:checked {
+    background-color: #f1f1f1;
 }
 
 .weather-flex-row {
@@ -282,16 +277,16 @@ button {
     border-color: #666;
     background-color: rgba(120, 143, 148, 0.548);
     height: 70px;
-  }
+}
 
-  .find-parks-layout{
+.find-parks-layout {
     display: flex;
     flex-direction: column;
     margin-right: 5px;
-   list-style: none;
-   text-align: left;
-   width: 200px;
-}  
+    list-style: none;
+    text-align: left;
+    width: 200px;
+}
 
 .results {
     margin-left: 5px;
@@ -300,14 +295,13 @@ button {
 /*tablets*/
 @media screen and (min-width: 600px) {
     .head-img {
-       display: none;
+        display: none;
     }
 
     body {
         background: no-repeat url("images_naif/naturelaptoptitle.png");
         background-size: contain;
         margin-top: 200px;
-        /*margin-left: 90px;*/    
     }
 
     .indent {
@@ -320,13 +314,13 @@ button {
         margin: 0px;
         padding: 0px;
         text-align: center;
-      }
+    }
 
-      #form-label {
+    #form-label {
         margin-left: 20px;
-      }
+    }
 
-      header {
+    header {
         font-family: 'Quicksand';
         display: block;
         margin-left: 20px;
@@ -334,19 +328,19 @@ button {
         height: 100px;
         font-size: 24px;
         line-height: 30px;
-      }
+    }
 
     .searchForm {
         height: 200px;
         width: 500px;
-        margin-left:auto;
+        margin-left: auto;
         margin-right: auto;
         display: flex;
         flex-direction: column;
         align-content: center;
     }
 
-    #max{
+    #max {
         height: 100px;
     }
 
@@ -356,7 +350,7 @@ button {
         width: 450px;
     }
 
-    #maxLimitInput{
+    #maxLimitInput {
         margin-top: 20px;
         padding-left: 10px;
         text-align: center;
@@ -366,8 +360,8 @@ button {
         border: solid 1px lightgrey;
     }
 
-    .get-parks{
-        margin-top:5px;
+    .get-parks {
+        margin-top: 5px;
         font-size: 40px;
         width: 500px;
         height: 100px;
@@ -402,18 +396,13 @@ button {
         padding-bottom: 20px;
         font-size: 80px;
     }
-    
-
-
 }
-
 
 /*adjusting*/
 @media screen and (min-width: 800px) {
     header {
         margin-left: 50px;
     }
-
 
     .discover-call-to-action {
         width: 80%;
@@ -426,22 +415,20 @@ button {
     .head-img {
         display: none;
     }
-    
-    
-    body{
+
+    body {
         background: no-repeat url("images_naif/naturelaptoptitle.png");
         background-size: contain;
         margin-top: 300px;
         margin-left: 30px;
-        
     }
-    
+
     #NAIF-title {
         display: none;
-      }
+    }
 
-      header {
-          width: 90%;
+    header {
+        width: 90%;
         font-family: 'Quicksand';
         display: block;
         margin-left: 50px;
@@ -449,9 +436,9 @@ button {
         height: 100px;
         font-size: 24px;
         line-height: 30px;
-      }  
+    }
 
-      #second-container {
+    #second-container {
         width: 900px;
         padding-left: 50px;
         padding: 10px;
@@ -459,10 +446,10 @@ button {
         margin-left: auto;
         margin-right: auto;
     }
+
     #form-label {
         margin-left: 50px;
-       }
-
+    }
 
     .searchForm {
         height: 200px;
@@ -482,7 +469,7 @@ button {
         height: 200px;
     }
 
-    #maxLimitInput{
+    #maxLimitInput {
         margin-top: 60px;
         padding-left: 2px;
         text-align: center;
@@ -492,20 +479,20 @@ button {
         border: solid 1px lightgrey;
     }
 
-    .discover-call-to-action{
+    .discover-call-to-action {
         width: 80%;
-        
+
         padding: 10px;
         margin-left: 60px;
         font-size: 20px;
     }
 
-    .get-parks{
-        margin-top:5px;
+    .get-parks {
+        margin-top: 5px;
         font-size: 40px;
         width: 100px;
         height: 200px;
-    
+
     }
 
     .initial-button {
@@ -516,10 +503,10 @@ button {
         padding-bottom: 20px;
         font-size: 80px;
     }
-    
+
     .find-parks-layout {
         display: flex;
         flex-direction: row;
-        align-items: center;    
+        align-items: center;
     }
 }
