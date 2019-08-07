@@ -217,7 +217,7 @@ function displayWeather(currentPark, responseJson){
     
     let fullWeatherPrediction = responseJson.properties; 
     $(`#js-park-item-${currentPark.parkCode}`).append(
-        `<li id="js-park-weather-item-${currentPark.parkCode}" class="flex-row-small"><h3>${currentPark.name} Weather </h3>
+        `<li id="js-park-weather-item-${currentPark.parkCode}"><h3>${currentPark.name} Weather </h3>
         </li>`
         ); 
     $('#loading-weather').empty();       
@@ -228,13 +228,17 @@ function displayWeather(currentPark, responseJson){
         let finalDate = newDate.toDateString();
         let shortenedDate = finalDate.slice(4,15);  
         $(`#js-park-weather-item-${currentPark.parkCode}`).append(     
-        `<li id="js-weather-details-${fullWeatherPrediction.periods[k].name}">
-        <p>
-        <div class="forecastDate"><h4>${fullWeatherPrediction.periods[k].name} ${shortenedDate}</h4></div>
-        <div class="forecast">${fullWeatherPrediction.periods[k].shortForecast}</div>
+        `<li id="js-weather-details-${fullWeatherPrediction.periods[k].name}" class="weather-flex-row">
+        <section class="weather-aside stack-items">
+        <div class="forecastName">${fullWeatherPrediction.periods[k].name} </div>
         <div class="temp">${fullWeatherPrediction.periods[k].temperature}F</div>
-        <div class="wind">Wind: ${fullWeatherPrediction.periods[k].windDirection} ${fullWeatherPrediction.periods[k].windSpeed}</div>
-        </p><hr></li>`
+        </section>
+        <section class="weather-main stack-items">
+        <div class="forecastDate">${shortenedDate}</div>
+        <div class="forecastDesc">${fullWeatherPrediction.periods[k].shortForecast}</div>
+        <div class="forecastWind">Wind: ${fullWeatherPrediction.periods[k].windDirection} ${fullWeatherPrediction.periods[k].windSpeed}</div>
+        </section>
+        </li>`
         )};
         
     }       
@@ -495,18 +499,25 @@ function readyListener() {
         console.log('detected click');
         $('.results').empty();
         $('#js-error-message').empty();
-        $('.initial-fieldset').addClass("hidden");
+        $('.landing-page').addClass("hidden");
+        //$('.initial-fieldset').addClass("hidden");
         $('header').addClass("hidden");
-        $('#container').addClass("hidden");
-        $('.discover-call-to-action').addClass("hidden");
+        //$('#container').addClass("hidden");
+        //$('.discover-call-to-action').addClass("hidden");
         $('#NAIF-title').removeClass("hidden");
         $('#form-label').removeClass("hidden");
         $('#second-container').removeClass("hidden");
-        $('#second-container').addClass("flex-row");
         $('#locale-search').removeClass("hidden");
        $('.campgrounds').addClass("stack-items");
+       $('#second-container').addClass("find-parks-layout");
+
+        /*if ($(window).width() > 980) {  
         document.body.style.background = "url('images_naif/naturelaptop.png') no-repeat";
-        document.body.style.backgroundSize = "contain";
+        document.body.style.backgroundSize = "contain";   
+        } else if (($(window).width() > 500) && ($(window).width() < 980)) {
+            document.body.style.background = "url('images_naif/natureipad.png') no-repeat";
+            document.body.style.backgroundSize = "contain";
+        }*/
         localeSearch();
     });
 }
