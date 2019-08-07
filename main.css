@@ -432,6 +432,8 @@ button {
         background: no-repeat url("images_naif/naturelaptoptitle.png");
         background-size: contain;
         margin-top: 300px;
+        margin-left: 30px;
+        
     }
     
     #NAIF-title {
