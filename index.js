@@ -406,7 +406,7 @@ function displayResultsCampgrounds(responseJson) {
             <button type="submit" id="get-accessibility-${currentCg.parkCode}" class="">Get Accessibilty Info</button>
             <button type="submit" id="hide-accessibility-${currentCg.parkCode}" class="hidden">Hide Accessibility Info</button>
             <button type="submit" id="show-accessibility-${currentCg.parkCode}" class="hidden">Show Accessibility Info</button>
-            <div> 7 day Weather Forecaset: <button type="submit" id="get-weather-${currentCg.parkCode}" class="">Get Weather</button>
+            <button type="submit" id="get-weather-${currentCg.parkCode}" class="">Get Weather</button>
             <button type="submit" id="hide-weather-${currentCg.parkCode}" class="hidden">Hide Weather</button>
             <button type="submit" id="show-weather-${currentCg.parkCode}" class="hidden">Show Weather</button>
             <button type="submit" id="get-nearbyHikes-${currentCg.parkCode}" class="">Get Nearby Hikes</button>
