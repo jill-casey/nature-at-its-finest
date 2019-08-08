@@ -384,25 +384,25 @@ function displayResultsCampgrounds(responseJson) {
         for (let i = 0; i < cgList.length; i++) {
             let currentCg = cgList[i];
             $('.results').append(
-                `<li id="js-park-item-${currentCg.parkCode}"><h3>${currentCg.name}</h3>
+                `<li id="js-park-item-${currentCg.parkCode}-${i}"><h3>${currentCg.name}</h3>
             <p>${currentCg.description}</p>
             `)
             if (`${currentCg.directionsoverview}` != "") {
-                $(`js-park-item-${currentCg.parkCode}`).append(
+                $(`js-park-item-${currentCg.parkCode}-${i}`).append(
                     `<p>Directions Overview: ${currentCg.directionsoverview}</p>
             `)
             }
             if (`${currentCg.directionsUrl}` != "") {
-                $(`js-park-item-${currentCg.parkCode}`).append(
+                $(`js-park-item-${currentCg.parkCode}-${i}`).append(
                     `<p>Find reservation and detailed directions here. <a href="${currentCg.directionsUrl}" target="_blank">${currentCg.directionsUrl}</a></p>
             `)
             }
             if (currentCg.latLong == "") {
-                $(`#js-park-item-${currentCg.parkCode}`).append(`
+                $(`#js-park-item-${currentCg.parkCode}-${i}`).append(`
             <div id="buttons-no-go">Weather and Hikes are not available for this site</div>
             `)
             } else {
-                $(`#js-park-item-${currentCg.parkCode}`).append(`
+                $(`#js-park-item-${currentCg.parkCode}-${i}`).append(`
             <button type="submit" id="get-accessibility-${currentCg.parkCode}" class="">Get Accessibilty Info</button>
             <button type="submit" id="hide-accessibility-${currentCg.parkCode}" class="hidden">Hide Accessibility Info</button>
             <button type="submit" id="show-accessibility-${currentCg.parkCode}" class="hidden">Show Accessibility Info</button>
